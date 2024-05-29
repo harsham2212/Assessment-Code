@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collegctions.Generic;
+using System.Collegctions.Generic; // collection spelling should be corrected
 using System.Linq;
 
 namespace Utility.Valocity.ProfileHelper
