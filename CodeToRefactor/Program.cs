@@ -31,31 +31,22 @@ namespace CodingAssessment.Refactor
             _people = new List<People>();
             _random = new Random();  // Initialize Random once
         }
-
-        public List<People> GetPeople(int i)
+        
+        public List<People> GetPeople(int count) //Fixed i to count for proper naming
         {
-            for (int j = 0; j < i; j++)
+            for (int j = 0; j < count; j++)
             {
                 try
-                {
-                    // Creates a dandon Name
-                    string name = string.Empty;
-                    var random = new Random();
-                    if (random.Next(0, 1) == 0)
-                    {
-                        name = "Bob";
-                    }
-                    else
-                    {
-                        name = "Betty";
-                    }
-                    // Adds new people to the list
-                    _people.Add(new People(name, DateTime.UtcNow.Subtract(new TimeSpan(random.Next(18, 85) * 356, 0, 0, 0))));
+                { // Fixed the random generation logic to alternate correctly
+                    string name = _random.Next(2) == 0 ? "Bob" : "Betty";
+                    // Changed from subtracting TimeSpan to adding days in the past
+                    DateTime dob = DateTime.UtcNow.AddDays(-_random.Next(18 * 365, 85 * 365));
+                    _people.Add(new People(name, dob));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // Dont think this should ever happen
-                    throw new Exception("Something failed in user creation");
+                    throw new Exception("Failed to create user. Please try again later.");
                 }
             }
             return _people;
