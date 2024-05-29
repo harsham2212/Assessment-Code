@@ -67,5 +67,39 @@ namespace CodingAssessment.Refactor
             string fullName = $"{p.Name} {lastName}"; // Used string interpolation for clarity
             return fullName.Length > 255 ? fullName.Substring(0, 255) : fullName;
         }
+
+        public class Program
+        {
+            public static void Main(string[] args)
+            {
+                var birthingUnit = new BirthingUnit();
+
+                // Generate 10 random people
+                var people = birthingUnit.GetPeople(10);
+
+                // Print the details of all people
+                Console.WriteLine("All People:");
+                foreach (var person in people)
+                {
+                    Console.WriteLine($"Name: {person.Name}, DOB: {person.DOB}");
+                }
+
+                // Get all Bobs older than 30
+                var bobsOlderThan30 = birthingUnit.GetBob(true);
+
+                Console.WriteLine("\nBobs Older Than 30:");
+                foreach (var bob in bobsOlderThan30)
+                {
+                    Console.WriteLine($"Name: {bob.Name}, DOB: {bob.DOB}");
+                }
+
+                // Test GetMarried method
+                var personToMarry = new People("Lucy", DateTime.UtcNow.AddYears(-25));
+                string marriedName = birthingUnit.GetMarried(personToMarry, "Jhonshan");
+
+                Console.WriteLine($"\n{personToMarry.Name} married and changed name to: {marriedName}");
+            }
+
+        }
     }
 }
