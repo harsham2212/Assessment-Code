@@ -69,6 +69,7 @@ namespace Utility.Valocity.ProfileHelper
         private IEnumerable<People> GetBobs(bool olderThan30)
         {
             return olderThan30 ? _people.Where(x => x.Name == "Bob" && x.DOB >= DateTime.Now.Subtract(new TimeSpan(30 * 356, 0, 0, 0))) : _people.Where(x => x.Name == "Bob");
+            // return for olderthan30 i.e date logic is wrong and no. of days in a year is also wrong again
         }
 
         public string GetMarried(People p, string lastName)
