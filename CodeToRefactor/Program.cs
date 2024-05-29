@@ -24,11 +24,14 @@ namespace CodingAssessment.Refactor
     public class BirthingUnit
     {
         private List<People> _people;
+        private readonly Random _random; // Single Random instance for reuse
 
         public BirthingUnit()
         {
             _people = new List<People>();
+            _random = new Random();  // Initialize Random once
         }
+
         public List<People> GetPeople(int i)
         {
             for (int j = 0; j < i; j++)
