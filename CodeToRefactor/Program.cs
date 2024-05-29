@@ -23,21 +23,12 @@ namespace CodingAssessment.Refactor
 
     public class BirthingUnit
     {
-        /// <summary>
-        /// MaxItemsToRetrieve
-        /// </summary>
         private List<People> _people;
 
         public BirthingUnit()
         {
             _people = new List<People>();
         }
-
-        /// <summary>
-        /// GetPeoples
-        /// </summary>
-        /// <param name="j"></param>
-        /// <returns>List<object></returns>
         public List<People> GetPeople(int i)
         {
             for (int j = 0; j < i; j++)
