@@ -43,10 +43,10 @@ namespace Utility.Valocity.ProfileHelper
             {
                 try
                 {
-                    // Creates a dandon Name
+                    // Creates a dandon Name  // spelling mistake 
                     string name = string.Empty;
                     var random = new Random();
-                    if (random.Next(0, 1) == 0)
+                    if (random.Next(0, 1) == 0) 
                     {
                         name = "Bob";
                     }
