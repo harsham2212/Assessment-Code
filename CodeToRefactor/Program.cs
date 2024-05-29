@@ -52,9 +52,12 @@ namespace CodingAssessment.Refactor
             return _people;
         }
 
-        private IEnumerable<People> GetBobs(bool olderThan30)
+        private IEnumerable<People> GetBob(bool olderThan30)
         {
-            return olderThan30 ? _people.Where(x => x.Name == "Bob" && x.DOB >= DateTime.Now.Subtract(new TimeSpan(30 * 356, 0, 0, 0))) : _people.Where(x => x.Name == "Bob");
+            DateTime thresholdDate = DateTime.UtcNow.AddYears(-30); // Fixed the date calculation
+            return olderThan30
+                ? _people.Where(x => x.Name == "Bob" && x.DOB < thresholdDate)
+                : _people.Where(x => x.Name == "Bob");
         }
 
         public string GetMarried(People p, string lastName)
