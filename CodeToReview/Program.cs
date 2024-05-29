@@ -31,6 +31,7 @@ namespace Utility.Valocity.ProfileHelper
             _people = new List<People>();
         }
 
+        /* extra comments or extra lines which is not to be used in future should be removed  */
         /// <summary>
         /// GetPeoples
         /// </summary>
