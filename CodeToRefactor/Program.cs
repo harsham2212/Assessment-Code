@@ -34,18 +34,21 @@ namespace CodingAssessment.Refactor
         
         public List<People> GetPeople(int count) //Fixed i to count for proper naming
         {
+            string[] prefixes = { "Bob", "Betty" };
+            string[] suffixes = { "Stark", "Root", "Johnson", "Williams", "Jackson", "Head", "Miller", "Cummins", "Taylor", "Warner" };
+
             for (int j = 0; j < count; j++)
             {
                 try
-                { // Fixed the random generation logic to alternate correctly
-                    string name = _random.Next(2) == 0 ? "Bob" : "Betty";
-                    // Changed from subtracting TimeSpan to adding days in the past
-                    DateTime dob = DateTime.UtcNow.AddDays(-_random.Next(18 * 365, 85 * 365));
-                    _people.Add(new People(name, dob));
+                {
+                    string randomPrefix = prefixes[_random.Next(prefixes.Length)];
+                    string randomSuffix = suffixes[_random.Next(suffixes.Length)];
+                    string name = randomPrefix + " " + randomSuffix;
+                    DateTime dob = DateTime.UtcNow.AddDays(-_random.Next(18 * 365, 85 * 365)); // Generate random birth date
+                    _people.Add(new People(name, dob)); ;
                 }
                 catch (Exception)
-                {
-                    // Dont think this should ever happen
+                { 
                     throw new Exception("Failed to create user. Please try again later.");
                 }
             }
