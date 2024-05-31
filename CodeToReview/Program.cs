@@ -48,7 +48,7 @@ namespace Utility.Valocity.ProfileHelper
                     var random = new Random();
                     if (random.Next(0, 1) == 0) // Random logic is wrong and also improve getrandom people name logic more 
                     {
-                        name = "Bob";
+                        name = "Bob"; // It will genrate only random name Bob and Betty 
                     }
                     else
                     {
@@ -85,6 +85,8 @@ namespace Utility.Valocity.ProfileHelper
             // it will give compile time error please check it agian 
 
             // atlast add main method to run the program successfully
+
+            // Make program structre more clear 
         }
     }
 }
