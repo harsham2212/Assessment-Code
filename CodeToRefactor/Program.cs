@@ -6,7 +6,7 @@ namespace CodingAssessment.Refactor
 {
     public class People
     {
-        private static readonly DateTimeOffset Under16 = DateTimeOffset.UtcNow.AddYears(-15);
+        private static readonly DateTimeOffset Under16 = DateTimeOffset.Now.AddYears(-15);
         public string Name { get; private set; }
         public DateTimeOffset DOB { get; private set; }
 
@@ -24,40 +24,53 @@ namespace CodingAssessment.Refactor
     public class BirthingUnit
     {
         private List<People> _people;
-        private readonly Random _random; // Single Random instance for reuse
+        private readonly Random _random; 
 
         public BirthingUnit()
         {
             _people = new List<People>();
             _random = new Random();  // Initialize Random once
         }
-        
+
         public List<People> GetPeople(int count) //Fixed i to count for proper naming
         {
+            string[] prefixes = { "Bob", "Betty" };
+            string[] suffixes = { "Stark", "Root", "Johnson", "Williams", "Jackson", "Head", "Miller", "Cummins", "Taylor", "Warner" };
+
             for (int j = 0; j < count; j++)
             {
                 try
-                { // Fixed the random generation logic to alternate correctly
-                    string name = _random.Next(2) == 0 ? "Bob" : "Betty";
-                    // Changed from subtracting TimeSpan to adding days in the past
-                    DateTime dob = DateTime.UtcNow.AddDays(-_random.Next(18 * 365, 85 * 365));
-                    _people.Add(new People(name, dob));
+                {
+                    string randomPrefix = prefixes[_random.Next(prefixes.Length)];
+                    string randomSuffix = suffixes[_random.Next(suffixes.Length)];
+                    string name = randomPrefix + " " + randomSuffix;
+                    DateTime dob = DateTime.UtcNow.AddDays(-_random.Next(18 * 365, 85 * 365)); // Generate random birth date
+                    _people.Add(new People(name, dob)); ;
                 }
                 catch (Exception)
                 {
-                    // Dont think this should ever happen
                     throw new Exception("Failed to create user. Please try again later.");
                 }
             }
             return _people;
         }
 
-        private IEnumerable<People> GetBob(bool olderThan30)
+        public void GetBob()
         {
-            DateTime thresholdDate = DateTime.UtcNow.AddYears(-30); // Fixed the date calculation
-            return olderThan30
-                ? _people.Where(x => x.Name == "Bob" && x.DOB < thresholdDate)
-                : _people.Where(x => x.Name == "Bob");
+            var bobsOlderThan30 = _people.Where(p => p.Name.StartsWith("Bob") && p.DOB < DateTimeOffset.Now.AddYears(-30)).ToList();
+
+            if (bobsOlderThan30.Any())
+            {
+                Console.WriteLine("\nPerson having First Name as Bob Older Than 30:");
+                foreach (var bob in bobsOlderThan30)
+                {
+                    Console.WriteLine($"Name: {bob.Name}, Date of Birth: {bob.DOB}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nNo Bobs found older than 30.");
+            }
         }
 
         public string GetMarried(People p, string lastName)
@@ -74,8 +87,7 @@ namespace CodingAssessment.Refactor
             {
                 var birthingUnit = new BirthingUnit();
 
-                // Generate 10 random people
-                var people = birthingUnit.GetPeople(10);
+                var people = birthingUnit.GetPeople(5);
 
                 // Print the details of all people
                 Console.WriteLine("All People:");
@@ -83,15 +95,7 @@ namespace CodingAssessment.Refactor
                 {
                     Console.WriteLine($"Name: {person.Name}, DOB: {person.DOB}");
                 }
-
-                // Get all Bobs older than 30
-                var bobsOlderThan30 = birthingUnit.GetBob(true);
-
-                Console.WriteLine("\nBobs Older Than 30:");
-                foreach (var bob in bobsOlderThan30)
-                {
-                    Console.WriteLine($"Name: {bob.Name}, DOB: {bob.DOB}");
-                }
+                birthingUnit.GetBob();
 
                 // Test GetMarried method
                 var personToMarry = new People("Lucy", DateTime.UtcNow.AddYears(-25));
@@ -99,7 +103,6 @@ namespace CodingAssessment.Refactor
 
                 Console.WriteLine($"\n{personToMarry.Name} married and changed name to: {marriedName}");
             }
-
         }
     }
 }
