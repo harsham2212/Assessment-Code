@@ -24,7 +24,7 @@ namespace CodingAssessment.Refactor
     public class BirthingUnit
     {
         private List<People> _people;
-        private readonly Random _random; // Single Random instance for reuse
+        private readonly Random _random; 
 
         public BirthingUnit()
         {
@@ -87,7 +87,6 @@ namespace CodingAssessment.Refactor
             {
                 var birthingUnit = new BirthingUnit();
 
-                // Generate 10 random people
                 var people = birthingUnit.GetPeople(5);
 
                 // Print the details of all people
@@ -104,7 +103,6 @@ namespace CodingAssessment.Refactor
 
                 Console.WriteLine($"\n{personToMarry.Name} married and changed name to: {marriedName}");
             }
-
         }
     }
 }
